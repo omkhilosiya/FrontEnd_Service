@@ -2,7 +2,8 @@ import axios from "axios";
 import { store } from "../app/store";
 import { logout } from "../app/authSlice";
 
-const BASE_URL = "http://localhost:8085";
+const BASE_URL = "https://backendservice-production-1032.up.railway.app";
+
 
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
