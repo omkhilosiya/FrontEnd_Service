@@ -1,0 +1,497 @@
+.user-page {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+}
+
+/* Dropdown form */
+.dropdown-form {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  animation: slideDown 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.form-grid input,
+.form-grid select {
+  padding: 8px;
+}
+
+.status-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.submit-btn {
+  margin-top: 15px;
+  background: #16a34a;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.active {
+  color: #16a34a;
+}
+
+.inactive {
+  color: #ef4444;
+}
+
+.edit-btn {
+  background: #facc15;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+}
+/* Overlay */
+.password-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Box */
+.password-form {
+  background: #ffffff;
+  width: 420px;
+  border-radius: 10px;
+  padding: 22px 24px 26px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Header */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.form-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+.form-header button {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+}
+
+.form-header button:hover {
+  color: #000;
+}
+
+/* Username display */
+.username-display {
+  margin-bottom: 14px;
+}
+
+.username-display label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.username-display input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #f6f6f6;
+  font-size: 14px;
+  cursor: not-allowed;
+}
+
+/* Password input */
+.password-form form input[type="password"] {
+  width: 100%;
+  padding: 11px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.password-form form input:focus {
+  outline: none;
+  border-color: #f5c400;
+  box-shadow: 0 0 0 2px rgba(245, 196, 0, 0.25);
+}
+
+/* Submit button */
+.password-form form button {
+  width: 100%;
+  padding: 12px;
+  background: #f5c400;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.password-form form button:hover {
+  background: #e0b300;
+}
+
+.password-form form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ===== Page ===== */
+.subagents-page {
+  padding: 20px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* ===== Table ===== */
+.subagents-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.subagents-table thead {
+  background: #2c3e50;
+  color: #ffffff;
+}
+
+.table-head {
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.table-row {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.table-row:hover {
+  background: #f1f5f9;
+}
+
+.table-cell {
+  padding: 12px;
+  font-size: 14px;
+}
+
+.username-cell {
+  font-weight: 500;
+}
+
+.balance-cell {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.action-cell {
+  text-align: center;
+}
+
+/* ===== Buttons ===== */
+.add-balance-btn {
+  padding: 6px 14px;
+  background: #3498db;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.add-balance-btn:hover {
+  background: #2980b9;
+}
+
+/* ===== Modal ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background: #ffffff;
+  padding: 20px;
+  width: 360px;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* ===== Form ===== */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-input:disabled {
+  background: #f1f1f1;
+  cursor: not-allowed;
+}
+
+.form-textarea {
+  resize: none;
+  height: 70px;
+}
+
+/* ===== Modal Actions ===== */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.submit-btn {
+  background: #27ae60;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #219150;
+}
+
+.submit-btn:disabled {
+  background: #9dd7b3;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background: #bdc3c7;
+  color: #2c3e50;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #a6acaf;
+}
+/* Overlay Background */
+.password-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup Box */
+.password-form {
+  background: white;
+  width: 420px;
+  border-radius: 14px;
+  padding: 22px 26px;
+  box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
+  animation: popupFade 0.2s ease-in-out;
+  font-family: system-ui, -apple-system, Arial;
+}
+
+/* Header */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.form-header button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #555;
+}
+
+.form-header button:hover {
+  color: black;
+}
+
+/* Username Section */
+.username-display label,
+.password-form label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  display: block;
+  color: #666;
+}
+
+/* Inputs */
+.password-form input,
+.password-form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+}
+
+.password-form input:focus,
+.password-form select:focus {
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.2);
+}
+
+/* Button */
+.password-form button[type="submit"] {
+  width: 100%;
+  padding: 11px;
+  background: #ffcc00;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  color: #000;
+  letter-spacing: 0.3px;
+}
+
+.password-form button[type="submit"]:hover {
+  background: #ffbf00;
+}
+
+.password-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Animation */
+@keyframes popupFade {
+  from {
+    transform: scale(0.92);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+

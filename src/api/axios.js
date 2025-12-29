@@ -1,12 +1,14 @@
-import axios from 'axios';
-const BASE_URL = 'http://localhost:3500';
+import axios from "axios";
+//const BASE_URL = "https://backendservice-production-1032.up.railway.app";
 
-export default axios.create({
-    baseURL: BASE_URL
+const BASE_URL = "http://localhost:8085";
+
+export const axiosPublic = axios.create({
+  baseURL: BASE_URL,
 });
 
 export const axiosPrivate = axios.create({
-    baseURL: BASE_URL,
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true
+  baseURL: BASE_URL,
+  headers: { "Content-Type": "application/json" },
+  withCredentials: true,
 });

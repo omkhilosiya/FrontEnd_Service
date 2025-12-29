@@ -1,125 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.auth-section {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-html {
-    font-family: 'Nunito', sans-serif;
-    font-size: 22px;
-    color: #fff;
+.center-header {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #333;
 }
 
-body {
-    min-height: 100vh;
-    background-color: dodgerblue;
-}
-
-.App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; 
-  padding: 1rem 0.5rem;
-}
-
-section {
-    width: 100%;
-    max-width: 420px;
-    min-height: 400px;
+.auth-form {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 1rem;
-    background-color: rgba(0,0,0,0.4);
+    gap: 15px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex-grow: 1;
-    padding-bottom: 1rem;
+.input-field {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    transition: 0.2s ease;
 }
 
-a, a:visited {
+.input-field:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+.auth-btn {
+    background: #007bff;
     color: #fff;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-input[type="text"],
-input[type="password"],
-button,
-textarea {
-  font-family: 'Nunito', sans-serif;
-  font-size: 22px;
-  padding: 0.25rem;
-  border-radius: 0.5rem;
+.auth-btn:hover {
+    background: #0056b3;
 }
 
-label,
-button {
-  margin-top: 1rem;
+.redirect-text {
+    text-align: center;
+    margin-top: 20px;
 }
 
-button {
-  padding: 0.5rem;
+.redirect-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-li {
-    list-style-type: none;
+.redirect-text a:hover {
+    text-decoration: underline;
 }
 
-.instructions {
-    font-size: 0.75rem;
-    border-radius: 0.5rem;
-    background: #000;
-    color: #fff;
-    padding: 0.25rem;
-    position: relative;
-    bottom: -10px;
-}
-
-.instructions > svg {
-    margin-right: 0.25rem;
+/* Error Message */
+.errmsg {
+    color: red;
+    background: #ffe5e5;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .offscreen {
     position: absolute;
     left: -9999px;
-}
-
-.hide {
-    display: none;
-}
-
-.valid {
-    color: limegreen;
-    margin-left: 0.25rem;
-}
-
-.invalid {
-    color: red;
-    margin-left: 0.25rem;
-}
-
-.errmsg {
-    background-color: lightpink;
-    color: firebrick;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.line {
-    display: inline-block;
-}
-
-.flexGrow {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
 }

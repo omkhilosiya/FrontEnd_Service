@@ -1,0 +1,173 @@
+/* =========================
+   PAGE LAYOUT
+========================= */
+.subagents-page {
+  padding: 24px;
+  background-color: #f4f8ff; /* light blue-white */
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.page-title {
+  color: #0a3d91;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   TABLE STYLES
+========================= */
+.subagents-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.table-head {
+  background-color: #0a3d91;
+  color: #ffffff;
+  text-align: left;
+  padding: 14px;
+  font-size: 14px;
+}
+
+.table-row:nth-child(even) {
+  background-color: #f0f6ff;
+}
+
+.table-cell {
+  padding: 14px;
+  font-size: 14px;
+  color: #1f2d3d;
+  border-bottom: 1px solid #e3ebf7;
+}
+
+.username-cell {
+  font-weight: 600;
+  color: #0a3d91;
+}
+
+.balance-cell {
+  font-weight: 500;
+  color: #1c3faa;
+}
+
+.action-cell {
+  text-align: center;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.add-balance-btn {
+  background-color: #0a3d91;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.add-balance-btn:hover {
+  background-color: #062f73;
+}
+
+/* =========================
+   MODAL OVERLAY
+========================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 61, 145, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* =========================
+   MODAL BOX
+========================= */
+.modal-box {
+  background-color: #ffffff;
+  width: 360px;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.modal-box h3 {
+  margin: 0 0 10px;
+  color: #0a3d91;
+  font-size: 18px;
+}
+
+.modal-box p {
+  margin-bottom: 16px;
+  color: #334e8c;
+  font-size: 14px;
+}
+
+/* =========================
+   INPUT FIELD
+========================= */
+.modal-box input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #c8d6f0;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 18px;
+}
+
+.modal-box input:focus {
+  border-color: #0a3d91;
+}
+
+/* =========================
+   MODAL ACTIONS
+========================= */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Submit Button */
+.modal-actions button:first-child {
+  background-color: #0a3d91;
+  color: #ffffff;
+}
+
+.modal-actions button:first-child:hover {
+  background-color: #062f73;
+}
+
+/* Cancel Button */
+.modal-actions button:last-child {
+  background-color: #e6efff;
+  color: #0a3d91;
+}
+
+.modal-actions button:last-child:hover {
+  background-color: #d6e4ff;
+}
