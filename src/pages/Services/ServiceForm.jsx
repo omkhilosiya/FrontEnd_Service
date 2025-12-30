@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { axiosPrivate } from "../../api/useAxiosPrivate";
-import { jsPDF } from "jspdf";
 import "./services.css";
 import { useSelector } from "react-redux";
 
@@ -58,13 +57,11 @@ export default function ServiceForm({ type, onBack }) {
         res = await axiosPrivate.post("/rc/vehicle", payload);
       }
 
-      // Wallet Error Handling
       if (res.data?.success === false) {
         setWalletError(res.data.message || "Insufficient wallet balance");
         return;
       }
 
-      // Success Data
       if (res.data?.result?.data) {
         setData(res.data.result.data);
         setShowModal(true);
@@ -83,44 +80,49 @@ export default function ServiceForm({ type, onBack }) {
     }
   };
 
-  const handleDownload = async () => {
-    try {
-      await axiosPrivate.post("/downloads/savedownload", null, {
-        params: {
-          userId: auth?.dashboard?.walletDetails?.userId,
-          serviceName: SERVICE_MAP[option],
+const handleDownload = async () => {
+  try {
+    setLoading(true);
+
+    await axiosPrivate.post("/downloads/savedownload", null, {
+      params: {
+        userId: auth?.dashboard?.walletDetails?.userId,
+        serviceName: SERVICE_MAP[option],
+      },
+    });
+
+    if (type === "RC") {
+      const response = await axiosPrivate.post(
+        "/download",
+        {
+          code: 200,
+          result: { data },
         },
-      });
+        { responseType: "blob" }
+      );
 
-      const doc = new jsPDF();
-      doc.setFontSize(14);
-      doc.text("Service Details", 20, 20);
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
 
-      doc.setFontSize(11);
-      let y = 35;
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${data.regNo || "rc-certificate"}.pdf`;
+      a.click();
 
-      if (type === "RC") {
-        doc.text(`Owner: ${data.owner}`, 20, y); y += 8;
-        doc.text(`Vehicle No: ${data.regNo}`, 20, y); y += 8;
-        doc.text(`Model: ${data.model}`, 20, y); y += 8;
-        doc.text(`Manufacturer: ${data.vehicleManufacturerName}`, 20, y); y += 8;
-        doc.text(`Status: ${data.status}`, 20, y); y += 10;
-      } else {
-        doc.text(`Vehicle Number: ${data.vehicle_num}`, 20, y); y += 10;
-      }
-
-      doc.text(`Service Type: ${option}`, 20, y); y += 8;
-      doc.text(`Amount Paid: ₹${prices[option]}`, 20, y); y += 8;
-      doc.text(`Date: ${new Date().toLocaleString()}`, 20, y);
-
-      doc.save("service-details.pdf");
-
+      window.URL.revokeObjectURL(url);
       setShowModal(false);
-    } catch (error) {
-      console.error("Download failed", error);
-      alert("Download tracking failed");
+    } else {
+      alert("Download recorded successfully!");
+      setShowModal(false);
     }
-  };
+  } catch (e) {
+    console.error(e);
+    alert("Failed to process download");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <>
@@ -193,25 +195,44 @@ export default function ServiceForm({ type, onBack }) {
 
             {type === "RC" ? (
               <>
-                <p><b>Owner:</b> {data.owner}</p>
-                <p><b>Vehicle No:</b> {data.regNo}</p>
-                <p><b>Model:</b> {data.model}</p>
-                <p><b>Manufacturer:</b> {data.vehicleManufacturerName}</p>
-                <p><b>Status:</b> {data.status}</p>
+                <p>
+                  <b>Owner:</b> {data.owner}
+                </p>
+                <p>
+                  <b>Vehicle No:</b> {data.regNo}
+                </p>
+                <p>
+                  <b>Model:</b> {data.model}
+                </p>
+                <p>
+                  <b>Manufacturer:</b> {data.vehicleManufacturerName}
+                </p>
+                <p>
+                  <b>Status:</b> {data.status}
+                </p>
               </>
             ) : (
-              <p><b>Vehicle Number:</b> {data.vehicle_num}</p>
+              <p>
+                <b>Vehicle Number:</b> {data.vehicle_num}
+              </p>
             )}
 
-            <p><b>Service:</b> {option}</p>
-            <p><b>Amount:</b> ₹{prices[option]}</p>
+            <p>
+              <b>Service:</b> {option}
+            </p>
+            <p>
+              <b>Amount:</b> ₹{prices[option]}
+            </p>
 
             <div className="modal-actions">
               <button className="download-btn" onClick={handleDownload}>
                 Download
               </button>
 
-              <button className="close-btn" onClick={() => setShowModal(false)}>
+              <button
+                className="close-btn"
+                onClick={() => setShowModal(false)}
+              >
                 Close
               </button>
             </div>
@@ -219,7 +240,6 @@ export default function ServiceForm({ type, onBack }) {
         </div>
       )}
 
-      {/* WALLET ERROR MODAL */}
       {walletError && (
         <div className="modal-overlay">
           <div className="modal">
@@ -227,7 +247,10 @@ export default function ServiceForm({ type, onBack }) {
             <p>{walletError}</p>
 
             <div className="modal-actions">
-              <button className="close-btn" onClick={() => setWalletError(null)}>
+              <button
+                className="close-btn"
+                onClick={() => setWalletError(null)}
+              >
                 Close
               </button>
             </div>

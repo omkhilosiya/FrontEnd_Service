@@ -19,7 +19,7 @@ const COLORS = ["#8884d8", "#ffc658"];
 
 const SERVICE_MAP = {
   RC: "PARIVAAN_RC",
-  DL: "DL_DOWNLOAD",
+  DL: "DIGI_LOCKER_RC",
 };
 
 const initialDailyData = [

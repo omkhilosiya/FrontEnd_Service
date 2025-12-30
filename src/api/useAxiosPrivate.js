@@ -3,6 +3,7 @@ import { store } from "../app/store";
 import { logout } from "../app/authSlice";
 
 const BASE_URL = "https://backendservice-production-1032.up.railway.app";
+// const BASE_URL = "http://localhost:8085";
 
 
 export const axiosPrivate = axios.create({
@@ -12,7 +13,7 @@ export const axiosPrivate = axios.create({
   },
   withCredentials: true,
 });
-
+  
 /* 🔐 Attach JWT from localStorage */
 axiosPrivate.interceptors.request.use(
   (config) => {

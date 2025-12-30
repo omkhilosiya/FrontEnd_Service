@@ -49,24 +49,11 @@ const Login = () => {
     const token = data.jwtToken;
 
     if (!token) throw new Error("Token missing");
-
-    // Save token
     localStorage.setItem("token", token);
-
-    // 🔥 CORRECT Redux dispatch
     dispatch(loginSuccess(data));
-
-      // Optional: auto logout
     scheduleAutoLogout(token);
-
     toast.success("Login successful!");
-
-    
-
-    // 🚀 Redirect (NO BACK)
     navigate("/dashboard", { replace: true });
-
-    
 
   } catch (err) {
     let msg = "Login Failed";
