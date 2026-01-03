@@ -34,64 +34,84 @@ export default function ServiceForm({ type, onBack }) {
     try {
       setLoading(true);
 
-      let payload;
-      let res;
-
       if (type === "RC") {
-        payload = {
+        const payload = {
           vehicleNumber: input,
           userId: auth?.dashboard?.walletDetails?.userId,
           service: SERVICE_MAP[option],
         };
 
-        res = await axiosPrivate.post("/rc/verify", payload);
+        // STEP 1 — VERIFY API
+        const verifyRes = await axiosPrivate.post("/rc/verify", payload);
+
+        if (verifyRes.data?.success === false) {
+          setWalletError(
+            verifyRes.data.message || "Insufficient wallet balance"
+          );
+          return;
+        }
+
+        if (!verifyRes.data?.result?.data) {
+          alert("No data found");
+          return;
+        }
+
+        // STEP 2 — GENERATE QR (Pass full verify response)
+        const qrRes = await axiosPrivate.post("/generate-qr", verifyRes.data);
+
+        if (!qrRes.data?.result?.data) {
+          alert("QR generation failed");
+          return;
+        }
+
+        setData(qrRes.data.result.data);
+        setShowModal(true);
       }
 
       if (type === "RC_MOBILE") {
-        payload = {
+        const payload = {
           chassisNumber: input,
           userId: auth?.dashboard?.walletDetails?.userId,
           service: SERVICE_MAP[option],
         };
 
-        res = await axiosPrivate.post("/rc/vehicle", payload);
-      }
+        const res = await axiosPrivate.post("/rc/vehicle", payload);
 
-      if (res.data?.success === false) {
-        setWalletError(res.data.message || "Insufficient wallet balance");
-        return;
-      }
+        if (res.data?.success === false) {
+          setWalletError(res.data.message || "Insufficient wallet balance");
+          return;
+        }
 
-      if (res.data?.result?.data) {
-        setData(res.data.result.data);
-        setShowModal(true);
-      } else {
-        alert("No data found");
+        if (res.data?.result?.data) {
+          setData(res.data.result.data);
+          setShowModal(true);
+        } else {
+          alert("No data found");
+        }
       }
     } catch (error) {
       console.error(error);
       const msg =
         error.response?.data?.message ||
         "Something went wrong. Please try again.";
-
       setWalletError(msg);
     } finally {
       setLoading(false);
     }
   };
 
-const handleDownload = async () => {
-  try {
-    setLoading(true);
+  // OLD DOWNLOAD PDF
+  const handleDownload = async () => {
+    try {
+      setLoading(true);
 
-    await axiosPrivate.post("/downloads/savedownload", null, {
-      params: {
-        userId: auth?.dashboard?.walletDetails?.userId,
-        serviceName: SERVICE_MAP[option],
-      },
-    });
+      await axiosPrivate.post("/downloads/savedownload", null, {
+        params: {
+          userId: auth?.dashboard?.walletDetails?.userId,
+          serviceName: SERVICE_MAP[option],
+        },
+      });
 
-    if (type === "RC") {
       const response = await axiosPrivate.post(
         "/download",
         {
@@ -111,18 +131,44 @@ const handleDownload = async () => {
 
       window.URL.revokeObjectURL(url);
       setShowModal(false);
-    } else {
-      alert("Download recorded successfully!");
-      setShowModal(false);
+    } catch (e) {
+      console.error(e);
+      alert("Failed to process download");
+    } finally {
+      setLoading(false);
     }
-  } catch (e) {
-    console.error(e);
-    alert("Failed to process download");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
+  // ⭐ NEW DOWNLOAD CARD BUTTON FUNCTION
+  const handleDownloadCard = async () => {
+    try {
+      setLoading(true);
+
+      const response = await axiosPrivate.post(
+        "/downloadcard",
+        {
+          code: 200,
+          result: { data },
+        },
+        { responseType: "blob" }
+      );
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${data.regNo || "rc-card"}.pdf`;
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      alert("Failed to download card");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -196,24 +242,24 @@ const handleDownload = async () => {
             {type === "RC" ? (
               <>
                 <p>
-                  <b>Owner:</b> {data.owner}
+                  <b>Owner:</b> {data?.owner}
                 </p>
                 <p>
-                  <b>Vehicle No:</b> {data.regNo}
+                  <b>Vehicle No:</b> {data?.regNo}
                 </p>
                 <p>
-                  <b>Model:</b> {data.model}
+                  <b>Model:</b> {data?.model}
                 </p>
                 <p>
-                  <b>Manufacturer:</b> {data.vehicleManufacturerName}
+                  <b>Manufacturer:</b> {data?.vehicleManufacturerName}
                 </p>
                 <p>
-                  <b>Status:</b> {data.status}
+                  <b>Status:</b> {data?.status}
                 </p>
               </>
             ) : (
               <p>
-                <b>Vehicle Number:</b> {data.vehicle_num}
+                <b>Vehicle Number:</b> {data?.vehicle_num}
               </p>
             )}
 
@@ -227,6 +273,11 @@ const handleDownload = async () => {
             <div className="modal-actions">
               <button className="download-btn" onClick={handleDownload}>
                 Download
+              </button>
+
+              {/* ⭐ NEW BUTTON */}
+              <button className="download-btn" onClick={handleDownloadCard}>
+                Download Card
               </button>
 
               <button
